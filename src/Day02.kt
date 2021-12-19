@@ -1,18 +1,18 @@
 fun main() {
     fun convertInputLine(inputLine: String): Pair<String, Int> {
         val inputSpl = inputLine.split(" ")
-        return Pair(inputSpl[0], inputSpl[1].toInt())
+        return inputSpl[0] to inputSpl[1].toInt()
     }
 
     fun addCoords(p1: Pair<Int, Int>, p2: Pair<Int, Int>): Pair<Int, Int> {
-        return Pair(p1.first+p2.first, p1.second+p2.second)
+        return p1.first+p2.first to p1.second+p2.second
     }
     tailrec fun navigate(input: List<Pair<String, Int>>): Pair<Int, Int> {
         val (command, amount) = input.first()
         val p = when (command) {
-            "forward" -> Pair(amount, 0)
-            "down" -> Pair(0, amount)
-            "up" -> Pair(0, -amount)
+            "forward" -> amount to 0
+            "down" -> 0 to amount
+            "up" -> 0 to -amount
             else -> throw Exception("Wrong Input")
         }
         if (input.size == 1) return p
@@ -26,9 +26,9 @@ fun main() {
     tailrec fun navigate2(input: List<Pair<String, Int>>, aim: Int): Pair<Int, Int> {
         val (command, amount) = input.first()
         val (p, nextAim) = when (command) {
-            "forward" -> Pair(Pair(amount, amount*aim), aim)
-            "down" -> Pair(Pair(0, 0), aim+amount)
-            "up" -> Pair(Pair(0, 0), aim-amount)
+            "forward" -> amount to amount*aim to aim
+            "down" -> 0 to 0 to aim+amount
+            "up" -> 0 to 0 to aim-amount
             else -> throw Exception("Wrong Input")
         }
         if (input.size == 1) return p
